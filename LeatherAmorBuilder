@@ -1,0 +1,61 @@
+package be.alexisdepris.MatoulandModeration.utils;
+
+import org.bukkit.Color;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+public class LeatherArmorBuilder {
+
+    private LeatherArmorMeta lm;
+    private ItemStack im;
+
+    public LeatherArmorBuilder(ItemStack leatherArmor) {
+        this.im = leatherArmor;
+        this.lm = (LeatherArmorMeta) im.getItemMeta();
+
+    }
+
+    public LeatherArmorBuilder setName(String name) {
+        this.lm.setDisplayName(name);
+        return this;
+    }
+
+    public LeatherArmorBuilder setLore(String... lore) {
+        this.lm.setLore(Arrays.asList(lore));
+        return this;
+    }
+
+    public LeatherArmorBuilder setLore(List<String> lore) {
+        this.lm.setLore(lore);
+        return this;
+    }
+
+    public LeatherArmorBuilder setColor(Color color) {
+        this.lm.setColor(color);
+        return this;
+    }
+
+    public LeatherArmorBuilder setRandomColor() {
+        this.lm.setColor(Color.fromRGB(this.randomColor() + 1, this.randomColor() + 1, this.randomColor() + 1));
+        return this;
+    }
+
+    private int randomColor() {
+        Random r = new Random();
+        return r.nextInt(255);
+    }
+
+    public LeatherArmorBuilder buildItemMeta() {
+        this.im.setItemMeta(this.lm);
+        return this;
+    }
+
+    public ItemStack build() {
+        return this.im;
+    }
+
+}
